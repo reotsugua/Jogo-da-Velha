@@ -1,56 +1,51 @@
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        String[][] tabuleiro = {
+        static Scanner sc = new Scanner(System.in);
+        static String[][] tabuleiro = {
                 {"_", "_", "_"},
                 {"_", "_", "_"},
                 {"_", "_", "_"}
         };
+    public static void main(String[] args) {
+        boolean continua = true;
 
-        /*System.out.println("Jogador 1");
-        System.out.println("Escreva a posição da Coluna de 1 a 3: ");
-        Integer escolhaColunaJ1 = sc.nextInt();
-        System.out.println("Escreva a posição da Linha de 1 a 3: ");
-        Integer escolhaLinhaJ1 = sc.nextInt();*/
+        while (continua){
+        jogada(1);
+        jogada(2);
 
-        tabuleiro[escolhaLinhaJ1-1][escolhaColunaJ1-1] = "x";
-        imprimeTabuleiro(tabuleiro);
-
-        System.out.println("Jogador 2");
-        System.out.println("Escreva a posição da Coluna de 1 a 3: ");
-        Integer escolhaColunaJ2 = sc.nextInt();
-        System.out.println("Escreva a posição da Linha de 1 a 3: ");
-        Integer escolhaLinhaJ2 = sc.nextInt();
-        if (tabuleiro[escolhaLinhaJ2-1][escolhaColunaJ2-1] != null) {
-            System.out.println("ta ocupado");
-        } else {
-            tabuleiro[escolhaLinhaJ2-1][escolhaColunaJ2-1] = "o";
-        };
-        imprimeTabuleiro(tabuleiro);
+        }
     }
-    public static Integer escolhaJogador1 (){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Jogador 1");
-        System.out.println("Escreva a posição da Coluna de 1 a 3: ");
-        Integer coluna = sc.nextInt();
-        System.out.println("Escreva a posição da Linha de 1 a 3: ");
-        Integer linha = sc.nextInt();
 
-        return coluna;
+    public static void jogada(int jogador){
+        boolean escolhaCorreta = false;
+        do {
+        System.out.println("Vez do Jogador " + jogador);
+        System.out.println("Escreva a posição da Coluna de 1 a 3: ");
+        Integer escolhaColuna = sc.nextInt();
+        System.out.println("Escreva a posição da Linha de 1 a 3: ");
+        Integer escolhaLinha = sc.nextInt();
+        if (tabuleiro[escolhaLinha-1][escolhaColuna-1].equals("_")) {
+            tabuleiro[escolhaLinha-1][escolhaColuna-1] = (jogador==1)?"X": "O";
+            escolhaCorreta = true;
+        } else {
+            System.out.println("ocupado, escolha outra posição");
+        }
+        imprimeTabuleiro(tabuleiro);
+        } while (!escolhaCorreta);
     }
 
     public static void imprimeTabuleiro(String[][] tabuleiro){
+        System.out.println("\n");
         for (String [] linha : tabuleiro
              ) {
             for (String coluna: linha
                  ) {
                 System.out.print(coluna+"\t");
             }
-            System.out.println(" ");
+            System.out.println("");
         }
+        System.out.println("\n");
 
     }
 }
