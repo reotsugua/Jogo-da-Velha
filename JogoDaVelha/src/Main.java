@@ -11,10 +11,27 @@ public class Main {
         boolean continua = true;
 
         while (continua){
-        jogada(1);
-        jogada(2);
-
+            jogada(1);
+            continua = mostrarResultado();
+            jogada(2);
+            continua = mostrarResultado();
         }
+
+    }
+
+    public static Boolean mostrarResultado(){
+            Integer jogadorVencedor = verificarResultado();
+
+            if (jogadorVencedor != null) {
+                if (jogadorVencedor.equals(1)){
+                    System.out.println("Jogador 1 é vencedor");
+
+                } else {
+                    System.out.println("Jogador 2 é vencedor");
+                }
+                    return false;
+            }
+            return true;
     }
 
     public static void jogada(int jogador){
@@ -34,6 +51,43 @@ public class Main {
         imprimeTabuleiro(tabuleiro);
         } while (!escolhaCorreta);
     }
+
+    public static Integer verificarResultado(){
+
+        if (
+                !tabuleiro[2][0].equals("_")
+                        && tabuleiro[2][0].equals(tabuleiro[1][1])
+                        && tabuleiro[1][1].equals(tabuleiro[0][2])) {
+            return tabuleiro[2][0].equals("X")?1:2;
+        }
+
+        if (
+                !tabuleiro[0][0].equals("_")
+                        && tabuleiro[0][0].equals(tabuleiro[1][1])
+                        && tabuleiro[1][1].equals(tabuleiro[2][2])) {
+            return tabuleiro[0][0].equals("X")?1:2;
+        }
+
+        for (int i = 0; i < tabuleiro.length; i++){
+            if (
+                    !tabuleiro[i][0].equals("_")
+                            && tabuleiro[i][0].equals(tabuleiro[i][1])
+                            && tabuleiro[i][1].equals(tabuleiro[i][2])) {
+                return tabuleiro[i][0].equals("X")?1:2;
+            }
+            for (int j = 0; j < tabuleiro[i].length; j++){
+                if (
+                        !tabuleiro[0][j].equals("_")
+                                && tabuleiro[0][j].equals(tabuleiro[1][j])
+                                && tabuleiro[1][j].equals(tabuleiro[2][j])) {
+                    return tabuleiro[0][j].equals("X")?1:2;
+                }
+            }
+        }
+
+        return null;
+    }
+
 
     public static void imprimeTabuleiro(String[][] tabuleiro){
         System.out.println("\n");
